@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Base.Theme.CMSmadhan" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+
+    </style>
+
+    <!-- Main Theme extending Base Theme -->
+    <style name="Theme.CMSmadhan" parent="Base.Theme.CMSmadhan">
+        <!-- Add any additional customizations here if needed -->
+    </style>
+</resources>

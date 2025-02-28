@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.SolutionTeam">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/team_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/colorPrimary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:text="@string/new_complaint"
+            android:textSize="@dimen/_22ssp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/team_app_bar" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/complaint_subject"
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/edit_text_background"
+            android:elevation="@dimen/_8sdp"
+            android:hint="@string/subject"
+            android:minHeight="48dp"
+            android:padding="@dimen/_8sdp"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toBottomOf="@id/text_view"
+            tools:layout_editor_absoluteX="13dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/complaint_location"
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:background="@drawable/edit_text_background"
+            android:elevation="@dimen/_8sdp"
+            android:hint="@string/location"
+            android:minHeight="48dp"
+            android:padding="@dimen/_8sdp"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toBottomOf="@id/complaint_subject"
+            tools:layout_editor_absoluteX="13dp" />
+
+        <Spinner
+            android:id="@+id/complaint_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_background"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@id/complaint_location" />
+
+        <Spinner
+            android:id="@+id/complaint_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_background"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown"
+            app:layout_constraintTop_toBottomOf="@id/complaint_type" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/complaint_description_et"
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_background"
+            android:elevation="@dimen/_8sdp"
+            android:gravity="top|start"
+            android:hint="@string/complaint_description"
+            android:minLines="5"
+            android:padding="@dimen/_8sdp"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toBottomOf="@id/complaint_level"
+            tools:layout_editor_absoluteX="-88dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/complaint_reason"
+            style="@style/Widget.Material3.TextInputEditText.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_background"
+            android:elevation="@dimen/_8sdp"
+            android:gravity="top|start"
+            android:hint="@string/describe_reason"
+            android:minLines="5"
+            android:padding="@dimen/_8sdp"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/complaint_description_et"
+            tools:layout_editor_absoluteX="-88dp" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/upload_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:elevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@id/complaint_reason">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text_view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/upload_files"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_14ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/file_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:hint="@string/supported_formats_pdf_doc_docx_jpg_png"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_1" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/attach_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableStart="@drawable/ic_upload"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:text="@string/attach_file"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/file_name" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submit_complaint"
+            style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_12sdp"
+            android:backgroundTint="@color/colorPrimary"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/upload_card_view"
+            app:layout_constraintStart_toStartOf="@+id/upload_card_view"
+            app:layout_constraintTop_toBottomOf="@id/upload_card_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

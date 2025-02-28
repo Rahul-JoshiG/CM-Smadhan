@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_solutionTeam"
+            app:destination="@id/solutionTeam" />
+        <action
+            android:id="@+id/action_homeFragment_to_aiChatbotFragment"
+            app:destination="@id/aiChatbotFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_districtSolutionFragment"
+            app:destination="@id/districtSolutionFragment" />
+
+        <argument
+            android:name="homeName"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/aiChatbotFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.AiChatbotFragment"
+        android:label="fragment_a_i_chatbot"
+        tools:layout="@layout/fragment_a_i_chatbot" />
+
+    <fragment
+        android:id="@+id/solutionTeam"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.SolutionTeam"
+        android:label="fragment_solution_team"
+        tools:layout="@layout/fragment_solution_team" >
+        <action
+            android:id="@+id/action_solutionTeam_to_aiChatbotFragment"
+            app:destination="@id/aiChatbotFragment" />
+        <action
+            android:id="@+id/action_solutionTeam_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="teamName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_solutionTeam_to_districtSolutionFragment"
+            app:destination="@id/districtSolutionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/districtSolutionFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.DistrictSolutionFragment"
+        android:label="fragment_district_solution"
+        tools:layout="@layout/fragment_district_solution" >
+        <action
+            android:id="@+id/action_districtSolutionFragment_to_solutionTeam"
+            app:destination="@id/solutionTeam" />
+
+        <action
+            android:id="@+id/action_districtSolutionFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
+        <argument
+            android:name="districtName"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>
