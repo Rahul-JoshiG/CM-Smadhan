@@ -46,6 +46,9 @@
         <argument
             android:name="teamName"
             app:argType="string" />
+        <argument
+            android:name="districtName"
+            app:argType="string" />
         <action
             android:id="@+id/action_solutionTeam_to_districtSolutionFragment"
             app:destination="@id/districtSolutionFragment" />

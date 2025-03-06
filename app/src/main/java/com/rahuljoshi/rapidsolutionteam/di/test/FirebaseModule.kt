@@ -1,6 +1,7 @@
 package com.rahuljoshi.rapidsolutionteam.di.test
 
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
@@ -24,5 +25,11 @@ class FirebaseModule {
     @Singleton
     fun provideFirebaseStorage(): FirebaseStorage{
         return Firebase.storage
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth{
+      return FirebaseAuth.getInstance()
     }
 }

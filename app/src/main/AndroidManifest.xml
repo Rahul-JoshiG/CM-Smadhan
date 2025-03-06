@@ -2,28 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
+    <queries>
+
+        <!-- If querying specific apps by package name -->
+        <package android:name="com.facebook.katana" /> <!-- Main Facebook app -->
+        <package android:name="com.facebook.lite" /> <!-- Facebook Lite app -->
+        <package android:name="com.instagram.android" /> <!-- Instagram app -->
+        <package android:name="com.twitter.android" /> <!-- Twitter app -->
+
+
+        <!-- If querying apps that handle specific intents -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 
     <application
-        android:name="com.rahuljoshi.rapidsolutionteam.AppLevelApplication"
+        android:name=".AppLevelApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/cm"
+        android:icon="@drawable/cm_"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/cm"
+        android:roundIcon="@drawable/cm_"
         android:supportsRtl="true"
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="31">
-
-        <activity android:name="com.rahuljoshi.rapidsolutionteam.view.activity.DashboardActivity"
-            android:exported="false"/>
-        <activity android:name="com.rahuljoshi.rapidsolutionteam.view.activity.RegisterActivity"
-            android:exported="false"/>
-
-        <activity android:name="com.rahuljoshi.rapidsolutionteam.view.activity.LoginActivity"
+        <activity
+            android:name=".view.activity.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +43,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.activity.DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.RegisterActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:exported="false"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

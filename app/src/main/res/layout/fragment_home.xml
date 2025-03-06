@@ -1,27 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/colorPrimaryLight"
     tools:context=".view.fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <View
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/colorPrimary" />
+            android:layout_height="220dp"
+            android:background="@drawable/toolbar_view"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Top Section -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_38sdp"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_weight="1"
+                android:src="@drawable/ashok"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:id="@+id/login_logout"
+                android:layout_weight="1"
+                android:src="@drawable/ic_logout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
         <LinearLayout
             android:id="@+id/ll"
             android:layout_width="0dp"
@@ -29,91 +67,135 @@
             android:orientation="horizontal"
             android:padding="@dimen/_4sdp"
             android:weightSum="3"
-            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/header">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_80sdp"
-                android:layout_margin="@dimen/_4sdp"
+            <LinearLayout
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:layout_weight="1"
-                app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="@dimen/_4sdp">
+                android:gravity="center"
+                android:id="@+id/articles_ll"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/image_background"
                     android:contentDescription="@string/articles_for_yatra"
                     android:scaleType="centerCrop"
                     android:src="@drawable/yatra_articles" />
 
-            </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="@string/articles"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_80sdp"
-                android:layout_margin="@dimen/_4sdp"
+            <LinearLayout
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:layout_weight="1"
-                app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="@dimen/_4sdp">
+                android:gravity="center"
+                android:id="@+id/gallery_ll"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:contentDescription="@string/gallery"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/gallery" />
-            </androidx.cardview.widget.CardView>
+                    android:src="@drawable/pauri" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_80sdp"
-                android:layout_margin="@dimen/_4sdp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="@string/gallery"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_100sdp"
                 android:layout_weight="1"
-                app:cardCornerRadius="@dimen/_8sdp"
-                app:cardElevation="@dimen/_4sdp">
+                android:gravity="center"
+                android:id="@+id/administration_ll"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_weight="1"
                     android:contentDescription="@string/meri_yojna"
                     android:scaleType="centerCrop"
                     android:src="@drawable/meri_yojna" />
-            </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="@string/district_n_administration"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/solutionteam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:padding="@dimen/_8sdp"
-            android:text="@string/districts"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ll" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/district_recycler_view"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/district_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:padding="@dimen/_4sdp"
-            app:layout_constraintTop_toBottomOf="@id/solutionteam" />
+            android:layout_margin="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/solutionteam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:text="@string/districts"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/_16ssp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/district_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_4sdp"
+                    app:layout_constraintTop_toBottomOf="@id/solutionteam" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
 
         <!-- Emergency Numbers Section -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/emergency_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emergency_card"
-            app:cardCornerRadius="@dimen/_8sdp"
-            android:elevation="@dimen/_10sdp"
             android:layout_margin="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/district_recycler_view">
+            android:elevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/district_card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -123,100 +205,142 @@
                     android:id="@+id/emergency_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:padding="@dimen/_8sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     android:text="@string/emergency_numbers"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_14ssp"
                     android:textStyle="bold"
-                    android:layout_margin="@dimen/_12sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/police_ll"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@id/emergency_text"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:layout_marginHorizontal="@dimen/_12sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/emergency_text">
 
-                    <ImageView
-                        android:layout_width="@dimen/_48sdp"
-                        android:layout_height="@dimen/_48sdp"
-                        android:contentDescription="@string/police"
-                        android:src="@drawable/ic_police" />
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/police_ll"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/police"
-                        android:textSize="@dimen/_14ssp" />
-                </LinearLayout>
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/emergency_ll"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@id/emergency_text"
-                    app:layout_constraintEnd_toEndOf="parent">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/police_pic"
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:src="@drawable/police" />
 
-                    <ImageView
-                        android:layout_width="@dimen/_48sdp"
-                        android:layout_height="@dimen/_48sdp"
-                        android:contentDescription="@string/emergency"
-                        android:src="@drawable/ic_emergency" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/police_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/police"
+                            android:textSize="@dimen/_12ssp" />
 
-                    <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/police_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/police_number"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/ambulance_ll"
                         android:gravity="center"
-                        android:text="@string/emergency"
-                        android:textSize="@dimen/_14ssp" />
-                </LinearLayout>
+                        android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/ambulance_ll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_columnWeight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_8sdp"
-                    app:layout_constraintTop_toBottomOf="@id/emergency_text"
-                    app:layout_constraintEnd_toStartOf="@id/emergency_ll"
-                    app:layout_constraintStart_toEndOf="@id/police_ll">
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ambulance_pic"
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:src="@drawable/ambulance" />
 
-                    <ImageView
-                        android:layout_width="@dimen/_48sdp"
-                        android:layout_height="@dimen/_48sdp"
-                        android:contentDescription="@string/ambulance"
-                        android:src="@drawable/ic_ambulance" />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/ambulance_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/ambulance"
+                            android:textSize="@dimen/_12ssp" />
 
-                    <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/ambulance_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/ambulance_number"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/emergency_ll"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/ambulance"
-                        android:textSize="@dimen/_14ssp" />
-                </LinearLayout>
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/emergency_pic"
+                            android:layout_width="@dimen/_38sdp"
+                            android:layout_height="@dimen/_38sdp"
+                            android:src="@drawable/emergency" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/emergency_text1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/emergency"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/emergency_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/emergency_number"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/social_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/social_card"
-            app:cardCornerRadius="@dimen/_8sdp"
-            android:elevation="@dimen/_10sdp"
             android:layout_margin="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emergency_card">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -227,26 +351,28 @@
                     android:id="@+id/social_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:fontFamily="@font/roboto_medium"
                     android:padding="@dimen/_8sdp"
                     android:text="@string/social_media"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/_16ssp"
+                    android:textSize="@dimen/_14ssp"
                     android:textStyle="bold"
-                    android:layout_margin="@dimen/_12sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_12sdp"
                     android:orientation="horizontal"
+                    android:layout_margin="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/social_text">
 
                     <ImageView
                         android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
+                        android:id="@+id/facebook"
                         android:layout_weight="1"
                         android:contentDescription="@string/facebook_link"
                         android:src="@drawable/facebook" />
@@ -255,6 +381,7 @@
                         android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_weight="1"
+                        android:id="@+id/twitter"
                         android:contentDescription="@string/twitter_link"
                         android:src="@drawable/twitter" />
 
@@ -262,10 +389,12 @@
                         android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_weight="1"
+                        android:id="@+id/instagram"
                         android:contentDescription="@string/instagram_link"
                         android:src="@drawable/instagram" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

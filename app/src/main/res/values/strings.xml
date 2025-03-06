@@ -29,7 +29,7 @@
     <string name="disaster_management">Disaster Management</string>
     <string name="emergency_numbers">Emergency Numbers</string>
     <string name="police">Police</string>
-    <string name="ambulance">ambulance</string>
+    <string name="ambulance">Ambulance</string>
     <string name="emergency">Emergency</string>
     <string name="citizen_services">Citizen Services</string>
     <string name="complaint_registration">Complaint\nRegistration</string>
@@ -58,7 +58,7 @@
     <string name="send">Send</string>
     <string name="open_chatbot">open chatbot</string>
     <string name="ukcm">UKCM</string>
-    <string name="soluation_team">Soluation Team</string>
+    <string name="district_team">District\'s Team</string>
     <string name="new_complaint">New Complaint</string>
     <string name="subject">Complaint Title</string>
     <string name="complaint_type">Complaint Type</string>
@@ -67,7 +67,7 @@
     <string name="location">Location</string>
     <string name="attach_file">Attach Files</string>
     <string name="submit">Submit</string>
-    <string name="describe_reason">Describe Reason</string>
+    <string name="describe_reason">Describe Reason for unsolved complaint</string>
     <string name="district_name">District Name</string>
     <string name="districts">Districts</string>
     <string name="social_media">Social Media</string>
@@ -75,4 +75,18 @@
     <string name="file_name">File Name</string>
     <string name="upload_files">Upload Files</string>
     <string name="supported_formats_pdf_doc_docx_jpg_png">Supported formats: PDF, DOC, DOCX, JPG, PNG</string>
+    <string name="create_your_account">Fill all details to create an account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="welcome_back">Welcome back!</string>
+    <string name="police_number">100</string>
+    <string name="ambulance_number">108</string>
+    <string name="emergency_number">112</string>
+    <string name="articles">Articles</string>
+    <string name="pauri">Pauri</string>
+    <string name="district_n_administration">Administration</string>
+    <string name="back">back</string>
+    <string name="solution_team">Solution Team</string>
+    <string name="click_to_upload">Click to upload</string>
+    <string name="remember_me">Remember me</string>
 </resources>
