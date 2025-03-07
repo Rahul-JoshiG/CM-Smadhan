@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    tools:context=".view.activity.SplashActivity">
+    tools:context=".view.SplashActivity">
 
     <ImageView
         android:layout_width="match_parent"
@@ -39,5 +39,30 @@
         android:layout_margin="@dimen/_20sdp"
         android:fontFamily="@font/roboto_medium"
         app:layout_constraintTop_toBottomOf="@id/cm_pic"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_btn"
+        android:text="Admin"
+        android:textSize="@dimen/_18ssp"
+        android:background="@drawable/rounded_bottom"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:layout_margin="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/app_name"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_btn"
+        android:text="Head"
+        android:textSize="@dimen/_18ssp"
+        android:background="@drawable/rounded_bottom"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/colorPrimary"
+        android:textAllCaps="false"
+        android:layout_margin="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@id/admin_btn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

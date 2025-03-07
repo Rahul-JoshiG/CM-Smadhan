@@ -1,4 +1,4 @@
-package com.rahuljoshi.rapidsolutionteam.view.activity
+package com.rahuljoshi.rapidsolutionteam.view.user.activity
 
 import android.os.Bundle
 import android.util.Log

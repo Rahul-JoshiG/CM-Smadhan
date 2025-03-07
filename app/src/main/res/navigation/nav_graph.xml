@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.HomeFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.user.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_solutionTeam"
             app:destination="@id/solutionTeam" />
@@ -19,24 +19,22 @@
         <action
             android:id="@+id/action_homeFragment_to_districtSolutionFragment"
             app:destination="@id/districtSolutionFragment" />
-
         <argument
             android:name="homeName"
             app:argType="string" />
     </fragment>
 
-
     <fragment
         android:id="@+id/aiChatbotFragment"
-        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.AiChatbotFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.user.fragment.AiChatbotFragment"
         android:label="fragment_a_i_chatbot"
         tools:layout="@layout/fragment_a_i_chatbot" />
 
     <fragment
         android:id="@+id/solutionTeam"
-        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.SolutionTeam"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.user.fragment.SolutionTeam"
         android:label="fragment_solution_team"
-        tools:layout="@layout/fragment_solution_team" >
+        tools:layout="@layout/fragment_solution_team">
         <action
             android:id="@+id/action_solutionTeam_to_aiChatbotFragment"
             app:destination="@id/aiChatbotFragment" />
@@ -56,9 +54,9 @@
 
     <fragment
         android:id="@+id/districtSolutionFragment"
-        android:name="com.rahuljoshi.rapidsolutionteam.view.fragment.DistrictSolutionFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.user.fragment.DistrictSolutionFragment"
         android:label="fragment_district_solution"
-        tools:layout="@layout/fragment_district_solution" >
+        tools:layout="@layout/fragment_district_solution">
         <action
             android:id="@+id/action_districtSolutionFragment_to_solutionTeam"
             app:destination="@id/solutionTeam" />
@@ -71,6 +69,38 @@
             android:name="districtName"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_districtSolutionFragment_to_complaintFragment"
+            app:destination="@id/complaintFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/complaintFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.user.fragment.ComplaintFragment"
+        android:label="fragment_complaint"
+        tools:layout="@layout/fragment_complaint">
+        <action
+            android:id="@+id/action_complaintFragment_to_solutionTeam"
+            app:destination="@id/solutionTeam" />
+        <argument
+            android:name="departmentName"
+            app:argType="string" />
+        <argument
+            android:name="districtName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_complaintFragment_to_showComplaintFragment"
+            app:destination="@id/showComplaintFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/showComplaintFragment"
+        android:name="com.rahuljoshi.rapidsolutionteam.view.user.fragment.ShowComplaintFragment"
+        android:label="fragment_show_complaint"
+        tools:layout="@layout/fragment_show_complaint">
+        <action
+            android:id="@+id/action_showComplaintFragment_to_complaintFragment"
+            app:destination="@id/complaintFragment" />
     </fragment>
 
 </navigation>

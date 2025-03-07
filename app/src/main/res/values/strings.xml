@@ -89,4 +89,7 @@
     <string name="solution_team">Solution Team</string>
     <string name="click_to_upload">Click to upload</string>
     <string name="remember_me">Remember me</string>
+    <string name="admin_id">Admin ID</string>
+    <string name="notification">Notification</string>
+    <string name="my_complaints">My Complaints</string>
 </resources>

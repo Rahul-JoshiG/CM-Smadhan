@@ -1,5 +1,6 @@
-package com.rahuljoshi.rapidsolutionteam.view.fragment
+package com.rahuljoshi.rapidsolutionteam.view.user.fragment
 
+import android.R
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
@@ -26,6 +27,7 @@ class SolutionTeam : Fragment() {
     private var _binding: FragmentSolutionTeamBinding? = null
     private val binding get() = _binding!!
     private val mViewModel : FirebaseViewModel by viewModels()
+    private var mCurrentUserId: String? = null
 
     private val args: SolutionTeamArgs by navArgs()
 
@@ -54,6 +56,8 @@ class SolutionTeam : Fragment() {
         setUpSpinners()
         handleComplaintSubmission()
         setOnClickListener()
+
+        mCurrentUserId = mViewModel.currentUser()?.uid
     }
 
     private fun setOnClickListener() {
@@ -90,8 +94,8 @@ class SolutionTeam : Fragment() {
     }
 
     private fun createSpinnerAdapter(items: List<String>): ArrayAdapter<String> {
-        return ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, items).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        return ArrayAdapter(requireContext(), R.layout.simple_spinner_item, items).apply {
+            setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         }
     }
 
@@ -106,10 +110,10 @@ class SolutionTeam : Fragment() {
 
             if (validateInputs(title, location, description, reason, level, type)) {
                 mViewModel.sendData(
-                    title, location, description, reason, level, type, args.districtName, args.teamName,
+                    mCurrentUserId, title, location, description, reason, level, type, args.districtName, args.teamName,
                     onSuccess = {
                         Toast.makeText(requireContext(), "Complaint Submitted Successfully!", Toast.LENGTH_SHORT).show()
-                        sendEmail(title, location, description, reason, level, type)
+                        //sendEmail(title, location, description, reason, level, type)
                     },
                     onFailure = { errorMessage ->
                         Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_LONG).show()

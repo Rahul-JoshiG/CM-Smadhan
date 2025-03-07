@@ -1,4 +1,4 @@
-package com.rahuljoshi.rapidsolutionteam.view.fragment
+package com.rahuljoshi.rapidsolutionteam.view.user.fragment
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,8 +21,8 @@ import com.rahuljoshi.rapidsolutionteam.databinding.FragmentHomeBinding
 import com.rahuljoshi.rapidsolutionteam.interfaces.TeamsInterface
 import com.rahuljoshi.rapidsolutionteam.utils.Constant
 import com.rahuljoshi.rapidsolutionteam.utils.ShardPref
-import com.rahuljoshi.rapidsolutionteam.view.activity.LoginActivity
-import com.rahuljoshi.rapidsolutionteam.view.adapters.DistrictsAdapter
+import com.rahuljoshi.rapidsolutionteam.view.user.activity.LoginActivity
+import com.rahuljoshi.rapidsolutionteam.view.user.adapters.DistrictsAdapter
 import com.rahuljoshi.rapidsolutionteam.viewmodel.FirebaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,9 +49,9 @@ class HomeFragment : Fragment(), TeamsInterface {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "onViewCreated: HomeFragment view created")
 
-        if(ShardPref.getSkipButtonPressed(Constant.SKIP_ENTER)){
+        if (ShardPref.getSkipButtonPressed(Constant.SKIP_ENTER)) {
             currentUser == null
-        }else{
+        } else {
             currentUser = mViewModel.currentUser()
         }
 
@@ -92,7 +93,11 @@ class HomeFragment : Fragment(), TeamsInterface {
         try {
             startActivity(Intent(Intent.ACTION_DIAL, Uri.parse(type)))
         } catch (e: ActivityNotFoundException) {
-            Toast.makeText(requireContext(), "Something went wrong. Try again later.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Something went wrong. Try again later.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -105,7 +110,7 @@ class HomeFragment : Fragment(), TeamsInterface {
 
     private fun openSocialAccount(url: String) {
         try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+            startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
         } catch (e: Exception) {
             Log.e(TAG, "No app can handle this intent: $url", e)
             showToast("Something went wrong...")
@@ -123,18 +128,13 @@ class HomeFragment : Fragment(), TeamsInterface {
     }
 
     override fun onTeamClicked(data: String) {
-        if(data == "Pauri Garhwal"){
-            val action = HomeFragmentDirections.actionHomeFragmentToDistrictSolutionFragment(data)
-            findNavController().navigate(action)
-        }else{
-            showToast("Coming soon...")
-        }
+        checkUserDistrict(data)
     }
 
     private fun checkUserDistrict(data: String) {
         Log.d(TAG, "Checking user district: $data")
 
-        val userId = currentUser?.uid
+        val userId = mViewModel.currentUser()?.uid
         if (userId == null) {
             Log.e(TAG, "User not logged in!")
             showToast("Please log in first.")
@@ -151,7 +151,7 @@ class HomeFragment : Fragment(), TeamsInterface {
                 val userDistrict = userData?.get("district") as? String
                 if (userDistrict == null) {
                     Log.e(TAG, "User district not found in Firestore!")
-                    showToast("District information not available.")
+                    //showToast("District information not available.")
                     return@collectLatest
                 }
 
@@ -159,11 +159,12 @@ class HomeFragment : Fragment(), TeamsInterface {
 
                 if (userDistrict == data) {
                     Log.d(TAG, "User's district matches, navigating...")
-                    val action = HomeFragmentDirections.actionHomeFragmentToDistrictSolutionFragment(data)
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentToDistrictSolutionFragment(data)
                     findNavController().navigate(action)
                 } else {
                     Log.d(TAG, "District does not match")
-                    showToast("Oops! It is not your district.")
+                    //showToast("Oops! It is not your district.")
                     showToast("Coming soon...")
                 }
             }

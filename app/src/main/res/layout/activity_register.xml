@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        tools:context=".view.activity.RegisterActivity">
+        tools:context=".view.user.activity.RegisterActivity">
 
         <ProgressBar
             android:layout_width="match_parent"

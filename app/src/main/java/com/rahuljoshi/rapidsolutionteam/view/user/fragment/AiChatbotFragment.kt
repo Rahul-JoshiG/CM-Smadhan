@@ -1,4 +1,4 @@
-package com.rahuljoshi.rapidsolutionteam.view.fragment
+package com.rahuljoshi.rapidsolutionteam.view.user.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

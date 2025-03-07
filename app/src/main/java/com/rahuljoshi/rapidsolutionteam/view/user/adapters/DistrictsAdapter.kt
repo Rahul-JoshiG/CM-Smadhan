@@ -1,4 +1,4 @@
-package com.rahuljoshi.rapidsolutionteam.view.adapters
+package com.rahuljoshi.rapidsolutionteam.view.user.adapters
 
 import android.view.LayoutInflater
 import android.view.View

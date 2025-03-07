@@ -35,7 +35,13 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".view.activity.SplashActivity"
+            android:name=".view.admin.activities.AdminDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.admin.activities.AdminLogInActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,17 +49,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".view.activity.DashboardActivity"
+            android:name=".view.user.activity.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".view.activity.RegisterActivity"
+            android:name=".view.user.activity.RegisterActivity"
             android:exported="false" />
-
         <activity
-            android:name=".view.activity.LoginActivity"
-            android:exported="false"/>
+            android:name=".view.user.activity.LoginActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

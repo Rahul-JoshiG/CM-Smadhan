@@ -1,10 +1,8 @@
-package com.rahuljoshi.rapidsolutionteam.view.activity
+package com.rahuljoshi.rapidsolutionteam.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +12,9 @@ import com.rahuljoshi.rapidsolutionteam.R
 import com.rahuljoshi.rapidsolutionteam.databinding.ActivitySplashBinding
 import com.rahuljoshi.rapidsolutionteam.utils.Constant
 import com.rahuljoshi.rapidsolutionteam.utils.ShardPref
+import com.rahuljoshi.rapidsolutionteam.view.admin.activities.AdminLogInActivity
+import com.rahuljoshi.rapidsolutionteam.view.user.activity.DashboardActivity
+import com.rahuljoshi.rapidsolutionteam.view.user.activity.LoginActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -28,7 +29,20 @@ class SplashActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         applyInsets()
 
-        checkedUserIsLoggedInOrNot()
+        //checkedUserIsLoggedInOrNot()
+        setOnClickListeners()
+    }
+
+    private fun setOnClickListeners() {
+        Log.d(TAG, "setOnClickListeners: ")
+        mBinding.adminBtn.setOnClickListener {
+            Log.d(TAG, "setOnClickListeners: admin btn clicked")
+            openActivity(AdminLogInActivity::class.java)
+        }
+        mBinding.userBtn.setOnClickListener {
+            Log.d(TAG, "setOnClickListeners: user btn clicked")
+            openActivity(LoginActivity::class.java)
+        }
     }
 
     private fun checkedUserIsLoggedInOrNot() {
@@ -45,11 +59,9 @@ class SplashActivity : AppCompatActivity() {
 
     private fun openActivity(activity: Class<*>) {
         Log.d(TAG, "openActivity: opening $activity")
-        Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this@SplashActivity, activity)
             startActivity(intent)
             finish()
-        }, SPLASH_SCREEN_TIME)
 
     }
 

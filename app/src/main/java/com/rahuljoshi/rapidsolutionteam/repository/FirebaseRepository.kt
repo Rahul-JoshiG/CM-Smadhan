@@ -6,9 +6,15 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import com.rahuljoshi.rapidsolutionteam.data.Complaint
+import com.rahuljoshi.rapidsolutionteam.data.User
 import com.rahuljoshi.rapidsolutionteam.utils.Constant
+import com.rahuljoshi.rapidsolutionteam.wrapper.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class FirebaseRepository @Inject constructor(
@@ -17,6 +23,7 @@ class FirebaseRepository @Inject constructor(
     private val auth: FirebaseAuth
 ) {
     fun uploadComplaint(
+        uid: String?,
         title: String,
         location: String,
         description: String,
@@ -29,6 +36,7 @@ class FirebaseRepository @Inject constructor(
         onFailure: (String) -> Unit
     ) {
         val complaintData = hashMapOf(
+            "uid" to uid,
             "title" to title,
             "location" to location,
             "description" to description,
@@ -53,13 +61,46 @@ class FirebaseRepository @Inject constructor(
             }
     }
 
+    fun getComplaints(
+        currentUserId: String?,
+        selectedDistrict: String,
+        selectedDepartment: String,
+        onSuccess: (List<Map<String, Any>>) -> Unit,
+        onFailure: (Exception) -> Unit
+    ) {
+        val reference = firestore.collection(Constant.COLLECTION_NAME)
+            .document(selectedDistrict)
+            .collection(selectedDepartment)
+
+        reference.whereEqualTo("uid", currentUserId).get()
+            .addOnSuccessListener { complaints ->
+                val complaintList = mutableListOf<Map<String, Any>>()
+
+                for (complaint in complaints) {
+                    complaintList.add(complaint.data)
+                }
+
+                onSuccess(complaintList)
+            }
+            .addOnFailureListener { e ->
+                Log.d(TAG, "getComplaints: ${e.message}")
+                onFailure(e)
+            }
+    }
+
+
     fun uploadFiles(uri: Uri, data: String) {
         Log.d(TAG, "uploadFiles: ")
         storage.reference.child("complaint_attachments/$data${uri.lastPathSegment}").putFile(uri)
     }
 
-
-    suspend fun registerUser(name: String, email: String, password: String, district: String, department: String): FirebaseUser? {
+    suspend fun registerUser(
+        name: String,
+        email: String,
+        password: String,
+        district: String,
+        department: String
+    ): FirebaseUser? {
         Log.d(TAG, "registerUser: register new user")
         return try {
             val result = auth.createUserWithEmailAndPassword(email, password).await()
@@ -82,7 +123,7 @@ class FirebaseRepository @Inject constructor(
     }
 
     // Login user
-    suspend fun loginUser(email: String, password: String):FirebaseUser?{
+    suspend fun loginUser(email: String, password: String): FirebaseUser? {
         Log.d(TAG, "loginUser: login user")
         return try {
             val result = auth.signInWithEmailAndPassword(email, password).await()
@@ -104,8 +145,6 @@ class FirebaseRepository @Inject constructor(
         }
     }
 
-
-
     // Logout user
     fun logout() {
         Log.d(TAG, "logout: logging out")
@@ -113,6 +152,97 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun getCurrentUser(): FirebaseUser? = auth.currentUser
+
+    private val districtCollection = firestore.collection(Constant.COLLECTION_NAME)
+    private val userCollection = firestore.collection(Constant.USERS)
+
+    suspend fun uploadTheComplaint(
+        districtId: String,
+        departmentId: String,
+        complaint: Complaint
+    ): Resource<Boolean> = withContext(Dispatchers.IO) {
+        Log.d(TAG, "uploadComplaint: uploading complaint in repository")
+        return@withContext try {
+            val complaintRef = districtCollection
+                .document(districtId)
+                .collection(Constant.SUB_COLLECTION_NAME)
+                .document(departmentId)
+                .collection(Constant.SUB_SUB_COLLECTION_NAME)
+                .document()
+            complaintRef.set(complaint).await()
+            Resource.Success(true)
+        } catch (e: Exception) {
+            Log.d(TAG, "uploadComplaint: ${e.message}")
+            Resource.Error(e.localizedMessage ?: "Unknown Error")
+        }
+    }
+
+    suspend fun getComplaints(
+        districtId: String,
+        departmentId: String,
+    ): Resource<List<Complaint>> = withContext(Dispatchers.IO){
+        Log.d(TAG, "getComplaints: getting all complaints in repository")
+        return@withContext try {
+            val result = districtCollection
+                .document(districtId)
+                .collection(Constant.SUB_COLLECTION_NAME)
+                .document(departmentId)
+                .collection(Constant.SUB_SUB_COLLECTION_NAME)
+                .orderBy("timestamp", Query.Direction.DESCENDING)
+                .get()
+                .await()
+
+            val complaints = result.toObjects(Complaint::class.java)
+            Resource.Success(complaints)
+        } catch (e: Exception) {
+            Log.d(TAG, "getComplaints: ${e.localizedMessage}")
+            Resource.Error(e.localizedMessage ?: "Failed to fetch complaints")
+        }
+    }
+
+    suspend fun createUserUsingEmailAndPassword(email: String, password: String) = withContext(
+        Dispatchers.IO
+    ) {
+        try {
+            val result = auth.createUserWithEmailAndPassword(email, password).await()
+            Resource.Success(result)
+            Log.d(TAG, "createUserUsingEmailAndPassword: ${result.user}")
+        } catch (e: Exception) {
+            Log.d(TAG, "createUserUsingEmailAndPassword: ${e.localizedMessage}")
+        }
+    }
+
+    suspend fun uploadTheRegisteredUser(user: User): Resource<Boolean> =
+        withContext(Dispatchers.IO) {
+            Log.d(TAG, "uploadTheRegisteredUser: uploading the user in repository")
+            return@withContext try {
+                val userName = auth.currentUser?.displayName
+                val userDocumentId = userName + auth.currentUser?.uid
+                val collectionRef = userCollection.document(userDocumentId)
+                collectionRef.set(user).await()
+
+                Resource.Success(true)
+            } catch (e: Exception) {
+                Log.d(TAG, "uploadTheRegisteredUser: error to upload user")
+                Resource.Error(e.localizedMessage ?: "Failed to upload user")
+            }
+
+        }
+
+    suspend fun signInTheUser(email: String, password: String) = withContext(Dispatchers.IO) {
+        try {
+            val result = auth.signInWithEmailAndPassword(email, password).await()
+            Resource.Success(result)
+        } catch (e: Exception) {
+            Log.d(TAG, "signInTheUser: failed to sign the user in repository")
+            Resource.Error(e.localizedMessage ?: "Failed to sign in", null)
+        }
+    }
+
+    suspend fun singOutTheUser() = withContext(Dispatchers.IO) {
+        Log.d(TAG, "singOutTheUser: sign out in repository")
+        auth.signOut()
+    }
 
     companion object {
         private const val TAG = "FirebaseRepository"

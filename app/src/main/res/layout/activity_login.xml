@@ -14,18 +14,18 @@
         tools:context=".view.activity.LogInActivity">
 
         <TextView
-           android:id="@+id/app_name"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:layout_marginTop="@dimen/_8sdp"
-           android:gravity="center"
+            android:id="@+id/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_8sdp"
             android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="@string/slogan"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_30ssp"
             android:textStyle="bold"
-           android:text="@string/slogan"
-           android:textColor="@color/white"
-           android:textSize="@dimen/_30ssp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/picture_image_view"
@@ -35,7 +35,7 @@
             android:src="@drawable/cm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_name"/>
+            app:layout_constraintTop_toBottomOf="@id/app_name" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/welcome_text"
@@ -43,11 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
             android:text="@string/welcome_back"
             android:textColor="@color/white"
-            android:gravity="center"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toBottomOf="@id/picture_image_view"/>
+            app:layout_constraintTop_toBottomOf="@id/picture_image_view" />
 
         <!-- Input Fields -->
         <LinearLayout
@@ -169,18 +169,29 @@
             android:textAllCaps="false"
             android:textColor="#4B5563"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintTop_toBottomOf="@id/no_acc_mess_ll"/>
+            app:layout_constraintTop_toBottomOf="@id/no_acc_mess_ll" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You can't access functions of this app without login"
-            android:textStyle="italic"
-            android:textSize="@dimen/_10sdp"
-            android:textColor="@color/white"
             android:gravity="center"
+            android:text="You can't access functions of this app without login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/skip_button"/>
+            app:layout_constraintTop_toBottomOf="@id/skip_button" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:indeterminateTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/input_details_linear_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
 

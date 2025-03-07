@@ -1,7 +1,6 @@
-package com.rahuljoshi.rapidsolutionteam.view.fragment
+package com.rahuljoshi.rapidsolutionteam.view.user.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rahuljoshi.rapidsolutionteam.data.SolutionTeamData
 import com.rahuljoshi.rapidsolutionteam.databinding.FragmentDistrictSolutionBinding
 import com.rahuljoshi.rapidsolutionteam.interfaces.TeamsInterface
-import com.rahuljoshi.rapidsolutionteam.view.adapters.SolutionTeamAdapter
+import com.rahuljoshi.rapidsolutionteam.view.user.adapters.SolutionTeamAdapter
 import com.rahuljoshi.rapidsolutionteam.viewmodel.FirebaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -27,8 +26,8 @@ class DistrictSolutionFragment : Fragment(), TeamsInterface {
     private var _binding: FragmentDistrictSolutionBinding? = null
     private val binding get() = _binding!!
     private val mViewModel: FirebaseViewModel by viewModels()
-
     private val args: DistrictSolutionFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,49 +41,38 @@ class DistrictSolutionFragment : Fragment(), TeamsInterface {
         super.onViewCreated(view, savedInstanceState)
         setUpToolbar()
         setUpRecyclerView()
-
     }
 
     private fun checkingUserDepartment(data: String) {
-        Log.d(TAG, "checkingTheUsersDistrict: ")
-        val id = mViewModel.currentUser()?.uid
-        if (id != null) {
-            mViewModel.getUserDetails(id) // Triggers data fetch
+        val userId = mViewModel.currentUser()?.uid
+        if (userId != null) {
             viewLifecycleOwner.lifecycleScope.launch {
+                mViewModel.getUserDetails(userId)
                 mViewModel.userDataState.collectLatest { userData ->
-                    userData?.get("department")?.let { userDepartment ->
-                        if (userDepartment == data) {
-                            val action = DistrictSolutionFragmentDirections.actionDistrictSolutionFragmentToSolutionTeam(data, args.districtName)
-                            findNavController().navigate(action)
-                        } else {
-                            Toast.makeText(requireContext(), "Oops!! It is not your department...", Toast.LENGTH_SHORT).show()
-                        }
+                    val userDepartment = userData?.get("department")
+                    if (userDepartment == data) {
+                        findNavController().navigate(DistrictSolutionFragmentDirections.actionDistrictSolutionFragmentToComplaintFragment(userDepartment.toString(),args.districtName))
+                    } else {
+                        showToast("Oops!! It is not your department...")
                     }
                 }
             }
-        }else{
+        } else {
             findNavController().navigateUp()
-            Toast.makeText(requireContext(), "To access this feature please login...", Toast.LENGTH_SHORT).show()
+            showToast("To access this feature, please log in...")
         }
     }
 
     private fun setUpRecyclerView() {
-        Log.d(TAG, "setUpRecyclerView: ")
-        val departmentList = SolutionTeamData.getSolutionTeamData()
-        val departmentAdapter = SolutionTeamAdapter(departmentList, this)
         binding.departmentRecyclerView.apply {
-            adapter = departmentAdapter
+            adapter = SolutionTeamAdapter(SolutionTeamData.getSolutionTeamData(), this@DistrictSolutionFragment)
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
     private fun setUpToolbar() {
-        Log.d(TAG, "setUpToolbar: ")
         binding.districtName.text = args.districtName
-
-        binding.backTo.setOnClickListener {
-            findNavController().navigateUp()
-        }
+        binding.backTo.setOnClickListener { findNavController().navigateUp() }
     }
 
     override fun onDestroyView() {
@@ -92,14 +80,11 @@ class DistrictSolutionFragment : Fragment(), TeamsInterface {
         _binding = null
     }
 
-    companion object {
-        private const val TAG = "DistrictSolutionFragment"
+    override fun onTeamClicked(data: String) {
+        checkingUserDepartment(data)
     }
 
-    override fun onTeamClicked(data: String) {
-        Log.d(TAG, "onTeamClicked: ")
-        val action = DistrictSolutionFragmentDirections.actionDistrictSolutionFragmentToSolutionTeam(data, args.districtName)
-        findNavController().navigate(action)
-        //checkingUserDepartment(data)
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
